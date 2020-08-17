@@ -1,10 +1,10 @@
 import * as ACTION_TYPE from '../actions//action_types';
 
 const initialState = {
-  stateProp1: false
+  stateProp1: false,
 }
 
-const rootReducer = (state = initialState, action) => {
+const Reducer1 = (state = initialState, action) => {
   switch(action.type) {
     case ACTION_TYPE.SUCCESS:
       return {
@@ -21,4 +21,4 @@ const rootReducer = (state = initialState, action) => {
   }
 }
 
-export default rootReducer;
+export default Reducer1;
