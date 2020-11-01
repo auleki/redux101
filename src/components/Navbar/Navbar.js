@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
+import { connect } from 'react-redux'
 
-const Navbar = () => {
+const Navbar = ({ cart }) => {
+
+  const [cartCount, setCartCount] = useState(0)
+
+  useEffect(() => {
+    let count = 0;
+    cart.forEach(item => count += item.qty)
+    console.log(cart);
+    setCartCount(count)
+  },[cart, cartCount])
+  
   return (
     <div className={styles.navbar}>
       <Link to="/">
@@ -16,11 +27,17 @@ const Navbar = () => {
             src="https://image.flaticon.com/icons/svg/102/102276.svg"
             alt="shopping cart"
           />
-          <div className={styles.cart__counter}>0</div>
+          <div className={styles.cart__counter}>{ cartCount }</div>
         </div>
       </Link>
     </div>
   );
 };
 
-export default Navbar;
+const mapStateToProps = state => {
+  return {
+    cart: state.shop.cart
+  }
+}
+
+export default connect(mapStateToProps)(Navbar);
