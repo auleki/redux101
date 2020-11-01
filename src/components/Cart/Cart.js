@@ -4,6 +4,13 @@ import styles from "./Cart.module.css";
 import CartItem from "./CartItem/CartItem";
 
 const Cart = () => {
+
+  const item = {
+    image: "https://i.pinimg.com/originals/b6/51/7a/b6517a96d21d364809305bb5bfaf2f46.png",
+    title: "Benz",
+    id: 4
+  }
+    
   return (
     <div className={styles.cart}>
       <div className={styles.cart__items}>

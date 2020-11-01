@@ -1,7 +1,10 @@
 import React from "react";
 import styles from "./CartItem.module.css";
 
-const CartItem = () => {
+const CartItem = ({ item }) => {
+
+  // console.log('Checking Item', item);
+  
   return (
     <div className={styles.cartItem}>
       <img
@@ -10,7 +13,7 @@ const CartItem = () => {
         alt={item.title}
       />
       <div className={styles.cartItem__details}>
-        <p className={styles.details__title}>Title</p>
+        <p className={styles.details__title}>{ item.title }</p>
         <p className={styles.details__desc}>Description</p>
         <p className={styles.details__price}>$ 10.00</p>
       </div>
