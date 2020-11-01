@@ -1,26 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./Cart.module.css";
 
 import CartItem from "./CartItem/CartItem";
+import { connect } from 'react-redux'
 
-const Cart = () => {
+const Cart = ({ cart }) => {
 
-  const item = {
-    image: "https://i.pinimg.com/originals/b6/51/7a/b6517a96d21d364809305bb5bfaf2f46.png",
-    title: "Benz",
-    id: 4
-  }
-    
+  const [totalPrice, setTotalPrice] = useState(0)
+  const [totalItems, setTotalItems] = useState(0)
+
+  useEffect(() => {
+    let items = 0
+    let price = 0
+
+    cart.forEach(item => {
+      items += item.qty
+      console.log('items: ', items);
+      console.log('total: ', price);
+      price += item.qty * item.price
+    })
+    setTotalPrice(price)
+    setTotalItems(items)
+  }, [cart, totalItems, totalPrice, setTotalItems, setTotalPrice])
+  
+  
   return (
     <div className={styles.cart}>
       <div className={styles.cart__items}>
-        <CartItem key={item.id} item={item} />
+      { cart.map(item => <CartItem key={item.id} item={item} />) }
       </div>
       <div className={styles.cart__summary}>
         <h4 className={styles.summary__title}>Cart Summary</h4>
         <div className={styles.summary__price}>
-          <span>TOTAL: (1 items)</span>
-          <span>$ 10.00</span>
+          <span>TOTAL: ({ totalItems } items)</span>
+          <span>$ { totalPrice }</span>
         </div>
         <button className={styles.summary__checkoutBtn}>
           Proceed To Checkout
@@ -30,4 +43,11 @@ const Cart = () => {
   );
 };
 
-export default Cart;
+const mapStateToProps = state => {
+  return {
+    cart: state.shop.cart
+  }
+}
+
+
+export default connect(mapStateToProps)(Cart);
